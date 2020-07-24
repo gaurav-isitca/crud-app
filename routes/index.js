@@ -41,12 +41,12 @@ router.post('/register', (req, res) => {
 // Login
 router.post('/login', function(request, response) {
 	let username = request.body.username_login;
-	let password = request.body.password_login;
+  let password = request.body.password_login;
 	if (username && password) {
 		db.query('SELECT * FROM users WHERE username = ?', [username], function(error, results, fields) {
-      console.log(results);
       if(bcrypt.compareSync(request.body.password_login, results[0].password)) {
-				request.session.loggedin = true;
+        request.session.loggedin = true;
+        request.session.username = username;
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
@@ -77,7 +77,8 @@ router.get('/home', (req, res) => {
       }
       else{
           res.render('user_index', {
-            user : rows  
+            user : rows,
+            user_loggedin : req.session.username
           });
       }
   }); 
@@ -104,7 +105,8 @@ router.get('/edit/:userId', (req, res) => {
       }
       else{
           res.render('edit_user', {
-            user : result[0]  
+            user : result[0],
+            user_loggedin : req.session.username 
           });
       }
   }); 

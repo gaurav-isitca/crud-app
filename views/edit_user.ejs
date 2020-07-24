@@ -26,10 +26,12 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="navbar-nav mr-5">
+      <li class="nav-item ">
+        <span style="color: white;">Welcome <%= user_loggedin %></span>
+      </li>
+    </ul>
+      <a href="/logout" class="btn btn-outline-primary my-2 my-sm-0" type="submit">logout</a>
   </div>
 </nav>
 <div class="container my-3">
