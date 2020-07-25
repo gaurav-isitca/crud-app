@@ -10,6 +10,12 @@ router.use(session({
 	saveUninitialized: true
 }));
 
+router.use(function (req, res, next) {
+res.locals.currentUser = req.session.username;
+next();
+});
+
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Node CRUD App' });
@@ -77,8 +83,7 @@ router.get('/home', (req, res) => {
       }
       else{
           res.render('user_index', {
-            user : rows,
-            user_loggedin : req.session.username
+            user : rows
           });
       }
   }); 
@@ -105,8 +110,7 @@ router.get('/edit/:userId', (req, res) => {
       }
       else{
           res.render('edit_user', {
-            user : result[0],
-            user_loggedin : req.session.username 
+            user : result[0]
           });
       }
   }); 
